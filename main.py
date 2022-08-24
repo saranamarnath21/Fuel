@@ -114,7 +114,7 @@ if selected == "Vessel FO Con Monitoring":
 
 if selected == "Total FO Con Monitoring":
 
-    st.write("Tug Boat from vessel to Port ")
+    st.write("Total Fuel Oil Consumption")
 
     df5 = pd.read_csv("graph5.csv")
     df6 = pd.read_csv("graph6.csv")
