@@ -24,9 +24,9 @@ selected = option_menu(
 
 if selected == "bollard pull":
     Speed = st.number_input("vessel speed in knots:")
-    Dist = st.number_input("distance:")
+    Dist = st.number_input("distance in NM:")
     FOC = -609.4+85.84*Speed
-    st.text("fuel oil consumption")
+    st.text("fuel oil consumption in Liters")
     st.write(FOC)
 
     st.markdown("Tug Boat from Port to Vessel ")
@@ -142,7 +142,7 @@ if selected == "bollard pull":
 
 if selected == "empty":
     speed = st.number_input("vessel speed in knots")
-    dist = st.number_input("distance")
+    dist = st.number_input("distance in NM")
     Foc = (-609.4+85.84*speed)*0.6
-    st.write("fuel oil consumption:")
+    st.write("fuel oil consumption in Liters:")
     st.write(Foc)
