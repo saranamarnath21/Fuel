@@ -19,7 +19,7 @@ st.markdown(hide_st_style,unsafe_allow_html=True)
 
 selected = option_menu(
     menu_title = None,
-    options=["Vessel FO Con Monitoring", "Total FO Con Monitoring"],
+    options=["Vessel FO Con Monitoring", "Total FO Con Monitoring", "Fuel Oil Consumption Calculation"],
 
     icons=["ship","ship"],
     orientation="horizontal",
@@ -147,8 +147,8 @@ if selected == "Total FO Con Monitoring":
     fig2.update_yaxes(visible=True, showticklabels=True, title_font=dict(size=12))
     st.plotly_chart(fig2, use_container_width=True)
 
-
-
-
-
-
+if selected == "Fuel Oil Consumption Calculation":
+    st.write("Fuel Oil Consumption Calculation")
+    X = st.number_input("Ship Speed Knots")
+    FOC = 11.090000000000032+85.84*X
+    st.write(FOC)
