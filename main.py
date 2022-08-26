@@ -150,5 +150,5 @@ if selected == "Total FO Con Monitoring":
 if selected == "Fuel Oil Consumption Calculation":
     st.write("Fuel Oil Consumption Calculation")
     X = st.number_input("Ship Speed Knots")
-    FOC = 11.090000000000032+85.84*X
+    FOC = -609.4+85.84*X
     st.write(FOC)
