@@ -1,5 +1,4 @@
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 from plotly.subplots import make_subplots
@@ -43,8 +42,10 @@ if selected == "Vessel FO Con Monitoring":
 
     st.write("Tug Boat from Port to Vessel ")
 
-    df1 = pd.read_csv("graph1.csv")
-    df2 = pd.read_csv("graph2.csv")
+    df1 = pd.read_csv("graph1.1.csv")
+    df2 = pd.read_csv("graph2a.csv")
+    df8 = pd.read_csv("graph2.1.csv")
+    df9 = pd.read_csv("graph2.2.csv")
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
@@ -53,7 +54,15 @@ if selected == "Vessel FO Con Monitoring":
         secondary_y=False,
     )
     fig.add_trace(
-        go.Scatter(x=df2['UTC Date & time'], y=df2['Fuel Oil Consumption (Litre)'], name="Fuel Oil Consumption (Litre)"),
+        go.Scatter(x=df2['UTC Date & time'], y=df2['power(kw)'], name="power(kw)"),
+        secondary_y=True,
+    )
+    fig.add_trace(
+        go.Scatter(x=df8['UTC Date & time'], y=df8['Bollard Pull'], name="Bollard Pull"),
+        secondary_y=True,
+    )
+    fig.add_trace(
+        go.Scatter(x=df9['UTC Date & time'], y=df9['Fuel Oil Consumption (Litre)'], name="Fuel Oil Consumption (Litre)"),
         secondary_y=True,
     )
 
@@ -65,8 +74,8 @@ if selected == "Vessel FO Con Monitoring":
 
     )
 
-    fig.update_xaxes(title_text="UTC Date & Time")
-    fig.update_yaxes(title_text="Speed , FO Consumption", )
+    fig.update_xaxes(title_text="UTC Date & time")
+    fig.update_yaxes(title_text="Speed(knots) , Power , Bollard Pull , FO Consumption", )
     fig.update_yaxes(range=[0, 50])
 
     df3 = pd.read_csv("tug1.csv")
@@ -122,7 +131,7 @@ if selected == "Total FO Con Monitoring":
     fig2 = make_subplots(specs=[[{"secondary_y": True}]])
 
     fig2.add_trace(
-        go.Scatter(x=df5['UTC Date & time'], y=df5[' Total Speed'], name="Speed (Knots)"),
+        go.Scatter(x=df5['UTC Date & time'], y=df5[' Total Speed'], name="speed (Knots)"),
         secondary_y=False,
     )
     fig2.add_trace(
