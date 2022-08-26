@@ -5,6 +5,7 @@ from plotly.subplots import make_subplots
 from streamlit_option_menu import option_menu
 
 
+
 st.set_page_config(page_title='Tug Boat',layout="wide",page_icon='🚢')
 
 st.header("FUEL OIL CONSUMPTION MONITORING SYSTEM")
@@ -18,29 +19,17 @@ st.markdown(hide_st_style,unsafe_allow_html=True)
 
 selected = option_menu(
     menu_title = None,
-    options=["Vessel FO Con Monitoring", "Total FO Con Monitoring", "Fuel Oil Consumption Calculation"],
-
-    icons=["ship","ship"],
-    orientation="horizontal",
-    default_index=0,
-    styles={
-        "container": {"padding":"0!important","background-color":"#ADD8E6"},
-        "icon":{"color":"orange","font-size":"15px","font-style":"Arial"},
-        "nav-link": {
-            "font-size":"12px",
-            "text-align":"justify",
-            "margin": "0px",
-            "--hover-color":"eee",
-
-        },
-        "nav-link-selected":{"background-color":"#00008B"},
-    },
+    options=["bollard pull" , "empty"],
 )
 
+if selected == "bollard pull":
+    Speed = st.number_input("vessel speed in knots:")
+    Dist = st.number_input("distance:")
+    FOC = -609.4+85.84*Speed
+    st.text("fuel oil consumption")
+    st.write(FOC)
 
-if selected == "Vessel FO Con Monitoring":
-
-    st.write("Tug Boat from Port to Vessel ")
+    st.markdown("Tug Boat from Port to Vessel ")
 
     df1 = pd.read_csv("graph1.1.csv")
     df2 = pd.read_csv("graph2a.csv")
@@ -62,7 +51,8 @@ if selected == "Vessel FO Con Monitoring":
         secondary_y=True,
     )
     fig.add_trace(
-        go.Scatter(x=df9['UTC Date & time'], y=df9['Fuel Oil Consumption (Litre)'], name="Fuel Oil Consumption (Litre)"),
+        go.Scatter(x=df9['UTC Date & time'], y=df9['Fuel Oil Consumption (Litre)'],
+                   name="Fuel Oil Consumption (Litre)"),
         secondary_y=True,
     )
 
@@ -83,10 +73,6 @@ if selected == "Vessel FO Con Monitoring":
     fig.update_yaxes(visible=True, showticklabels=True, title_font=dict(size=12))
     st.plotly_chart(fig, use_container_width=True)
 
-
-
-
-
     st.write("Tug Boat from vessel to Port ")
 
     df5 = pd.read_csv("graph3.csv")
@@ -99,7 +85,8 @@ if selected == "Vessel FO Con Monitoring":
         secondary_y=False,
     )
     fig1.add_trace(
-        go.Scatter(x=df6['UTC Date & time'], y=df6['Fuel Oil Consumption (Litre)'], name="Fuel Oil Consumption (Litre)"),
+        go.Scatter(x=df6['UTC Date & time'], y=df6['Fuel Oil Consumption (Litre)'],
+                   name="Fuel Oil Consumption (Litre)"),
         secondary_y=True,
     )
 
@@ -119,11 +106,7 @@ if selected == "Vessel FO Con Monitoring":
     st.plotly_chart(fig1, use_container_width=True)
 
 
-
-
-if selected == "Total FO Con Monitoring":
-
-    st.write("Total Fuel Oil Consumption")
+    st.markdown("Total Fuel Oil Consumption")
 
     df5 = pd.read_csv("graph5.csv")
     df6 = pd.read_csv("graph6.csv")
@@ -135,7 +118,8 @@ if selected == "Total FO Con Monitoring":
         secondary_y=False,
     )
     fig2.add_trace(
-        go.Scatter(x=df6['UTC Date & time'], y=df6['Total Fuel Oil Consumption (Litre)'], name="Fuel Oil Consumption (Litre)"),
+        go.Scatter(x=df6['UTC Date & time'], y=df6['Total Fuel Oil Consumption (Litre)'],
+                   name="Fuel Oil Consumption (Litre)"),
         secondary_y=True,
     )
 
@@ -156,8 +140,9 @@ if selected == "Total FO Con Monitoring":
     fig2.update_yaxes(visible=True, showticklabels=True, title_font=dict(size=12))
     st.plotly_chart(fig2, use_container_width=True)
 
-if selected == "Fuel Oil Consumption Calculation":
-    st.write("Fuel Oil Consumption Calculation")
-    X = st.number_input("Ship Speed Knots")
-    FOC = -609.4+85.84*X
-    st.write(FOC)
+if selected == "empty":
+    speed = st.number_input("vessel speed in knots")
+    dist = st.number_input("distance")
+    Foc = (-609.4+85.84*speed)*0.6
+    st.write("fuel oil consumption:")
+    st.write(Foc)
